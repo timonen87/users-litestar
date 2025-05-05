@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "users-litestar"
+version = "0.1.0"
+description = ""
+authors = ["timonen87"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12" 
+python-dotenv = "^1" 
+litestar = { extras = ["standard"], version = "^2" } 
+litestar-granian = "^0" 
+litestar-asyncpg = "^0" 
+advanced-alchemy = "^0.20" 
+msgspec = "^0.18.6"
+psycopg2-binary = "^2.9.10"
+uvicorn = "^0.34.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
