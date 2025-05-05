@@ -12,14 +12,33 @@ from advanced_alchemy.repository import ModelT
 
 
 class BaseRepository(SQLAlchemyAsyncRepository[ModelT], Generic[ModelT]):
-    """Базовый репозиторий с общими методами CRUD"""
+    """Базовый асинхронный репозиторий с общими CRUD-методами.
+
+    Наследуется от SQLAlchemyAsyncRepository и предоставляет дополнительные методы
+    для работы с моделями по указанным полям.
+
+    Args:
+        ModelT: Дженерик-тип модели SQLAlchemy.
+    """
 
     async def get_by_field(
         self, 
         field_name: str, 
         value: Any
     ) -> ModelT | None:
-        """Получить запись по значению поля"""
+        """Получить запись по значению указанного поля.
+
+        Args:
+            field_name: Название поля для фильтрации.
+            value: Значение поля для поиска.
+
+        Returns:
+            Экземпляр модели или None, если запись не найдена.
+
+        Examples:
+            >>> repo = BaseRepository(User)
+            >>> user = await repo.get_by_field("email", "test@example.com")
+        """
         return await self.get_one_or_none(**{field_name: value})
 
     async def exists_by_field(
@@ -27,15 +46,18 @@ class BaseRepository(SQLAlchemyAsyncRepository[ModelT], Generic[ModelT]):
         field_name: str, 
         value: Any
     ) -> bool:
-        """Проверить существование записи по полю"""
+        """Проверить существование записи с указанным значением поля.
+
+        Args:
+            field_name: Название поля для проверки.
+            value: Значение поля.
+
+        Returns:
+            bool: True если запись существует, иначе False.
+
+        Examples:
+            >>> repo = BaseRepository(User)
+            >>> exists = await repo.exists_by_field("username", "john_doe")
+        """
         return await self.count(**{field_name: value}) > 0
 
-    async def update_by_field(
-        self,
-        field_name: str,
-        field_value: Any,
-        update_data: dict[str, Any]
-    ) -> ModelT:
-        """Обновить запись по значению поля"""
-        obj = await self.get_one(**{field_name: field_value})
-        return await self.update(obj, update_data)

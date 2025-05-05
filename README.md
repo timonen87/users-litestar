@@ -41,8 +41,8 @@ cd users-litestar
 ```
 2. Настроить окружение:
 ```bash
-cp .env.dev .env
-# Отредактировать .env файл при необходимости
+cp .env.example .env.dev
+# Отредактировать .env.dev файл при необходимости ( .env.dev для Docker)
 ```
 3. Запуск через Docker:
 ```bash
@@ -67,7 +67,7 @@ curl -X POST http://localhost:8088/api/v1users \
 ```
 
 📂 Структура проекта
-
+```bash
 .
 ├── README.md
 ├── app
@@ -110,3 +110,5 @@ curl -X POST http://localhost:8088/api/v1users \
 │   └── __init__.py
 └── users_litestar
     └── __init__.py
+
+```

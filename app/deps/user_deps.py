@@ -7,5 +7,13 @@ from litestar.di import Provide
 
 
 async def provide_user_service(db_session: AsyncSession) -> UserService:
+    """Создает и возвращает экземпляр UserService с переданной асинхронной сессией БД.
+
+    Args:
+        db_session (AsyncSession): Асинхронная сессия SQLAlchemy для подключения к БД.
+
+    Returns:
+        UserService: Сервис для работы с пользователями.
+    """
     return UserService(session=db_session)
 

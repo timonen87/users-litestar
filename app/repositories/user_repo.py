@@ -18,8 +18,21 @@ class UserRepository(BaseRepository[User]):
         page: int = 1,
         page_size: int = 100,
     ) -> tuple[list[User], int]:
-        """Получение пользователей с пагинацией"""
+        """Получает список пользователей с пагинацией.
         
+        Возвращает кортеж из списка пользователей на указанной странице и общего количества пользователей.
+        Сортировка по дате создания (новые сначала).
+
+        Args:
+            page (int, optional): Номер страницы (начинается с 1). По умолчанию 1.
+            page_size (int, optional): Количество пользователей на странице. По умолчанию 100.
+
+        Returns:
+            tuple[list[User], int]: Кортеж из:
+                - Список пользователей на текущей странице.
+                - Общее количество пользователей (для расчета общего числа страниц).
+
+        """
         # Базовый запрос
         stmt = select(User).order_by(User.created_at.desc())
         
@@ -39,4 +52,3 @@ class UserRepository(BaseRepository[User]):
         total = count_result.scalar_one()
         
         return users, total
-
