@@ -186,3 +186,4 @@ yarn.lock
 
 
 /postgres_data
+postgres_data/
